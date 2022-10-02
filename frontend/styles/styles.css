@@ -29,6 +29,11 @@ body {
     color: white;
     background-color: red;
 }
+
+.btn-link:active {
+    color: white;
+    background-color: rgba(255, 0, 0, 0.5);
+}
 /* end of utilities */
 
 /* start of navbar */
@@ -65,20 +70,27 @@ body {
 /* end of navbar */
 
 .main-container {
-    padding: 30px 10px;
     width: 100%;
 }
 /* start of hero section */
 .hero-section {
-    font-size: 24px;
+    padding: 30px 10px;
     text-align: center;
+    color: white;
+    background-image: url('../assets/images/cover_images/alt_hero_image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-title {
+    font-size: 24px;
 }
 
 .hero-content {
     padding: 30px 0;
     font-size: 16px;
     font-weight: 600;
-    text-align: center;
 }
 
 .btn-hero {
@@ -87,5 +99,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 22px;
+}
+
+.btn-hero:hover {
+    background-color: #f1f1f1;
+    color: red;
+}
+
+.btn-hero:active {
+    background-color: rgba(241, 241, 241, 0.3);
+    color: white;
 }
 /* end of hero section */
