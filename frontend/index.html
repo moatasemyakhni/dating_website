@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-
+    <!-- Navbar -->
     <header class="navbar-container">
+        <!-- Logo -->
         <nav class="navbar">
             <a class="navbar-icon-container" href="#">
                 <object width="48" height="48" data="assets/images/icons/heart.svg">
@@ -16,7 +17,7 @@
                 
                 <h2 class="navbar-title">Match</h2>
             </a>
-
+            <!-- Links -->
             <div>
                 <a class="btn btn-link" href="#">Signup</a>
                 <a class="btn btn-link" href="#">Login</a>
@@ -25,6 +26,7 @@
     </header>
 
     <main class="main-container">
+        <!-- Hero Section -->
         <section class="hero-section">
             <h1 class="hero-title">
                 It is Never Late to fall in Love
@@ -33,6 +35,51 @@
                 Don't fall in love to grow in love. Get noticed for who you are
             </h3>
             <a class="btn btn-link btn-hero" href="#">Login</a>
+        </section>
+
+        <!-- Signup Section -->
+        <section class="signup-section">
+            <form action="index.html" method="post">
+                <h3 class="signup-title">Signup Form</h3>
+                <input class="input" type="text" placeholder="Full name..." id="full-name">
+                <div class="choice-inputs">
+                    <p>Gender</p>
+                    <div>
+                        <input type="radio" name="gender" id="male-gender">
+                        <label for="male-gender">Male</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" id="female-gender">
+                        <label for="female-gender">Female</label>
+                    </div>
+                </div>
+                <input class="input" type="number" placeholder="Age...">
+                <input class="input" type="email" placeholder="Email...">
+                <input class="input" type="password" placeholder="Password...">
+                <input class="input" type="password" placeholder="Confirm Password...">
+                <select class="input" id="location-selector">
+                    <!-- It will be done through js -->
+                </select>
+                <div class="choice-inputs">
+                    <p>Interested in</p>
+                    <div>
+                        <input type="checkbox" name="gender" id="male-gender-interest">
+                        <label for="male-gender-interest">Male</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="gender" id="female-gender-interest">
+                        <label for="female-gender-interest">Female</label>
+                    </div>
+                </div>
+                <textarea class="input txt-area" id="bio" cols="30" rows="10" placeholder="Bio..."></textarea>
+                <div class="img-wrapper">
+                    <label for="">
+                        <img width="30px" src="assets/images/logos/gallery_default.png" alt="">
+                    </label>
+                    <input width="0" height="0px" type="file">
+                </div>
+                <a class="btn btn-link" href="#">Submit</a>
+            </form>
         </section>
 
     </main>
