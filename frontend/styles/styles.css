@@ -156,6 +156,7 @@ body {
 .btn-submit {
     font-size: 18px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .btn-submit:hover {
