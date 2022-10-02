@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -23,9 +23,14 @@ class AuthController extends Controller
     public function register() {
         // validation
         $validator = validator()->make(request()->all(), [
-            'name' => "string|required",
+            'gender_id' => 'numeric|required',
+            'full_name' => "string|required",
             "email" => "email|required",
-            "password" => "string|min:6",
+            "password" => "string|min:6|max:999",
+            "age" => "numeric|required|min:18",
+            "location" => "string|required",
+            "bio" => "string",
+            "profile_picture" => "string",
         ]);
 
         if($validator->fails()) {
@@ -33,9 +38,29 @@ class AuthController extends Controller
                 "message" => 'Register failed',
             ]);
         }
+        $photo = request()->get('profile_picture');
+        // if(is_null($photo)) {
+            
+        // }
+        $data = explode(',', $photo);// to get the ext
+        $ext = explode(';', explode('/', $data[0])[1])[0];
+        $user = "user" . request()-> get('full_name') . "_" . time(); //unique it
+        $path = storage_path('/app/images/');
+        $completeUrl = $path . $user . "." . $ext;
+
+        //Actually saving the photo in the previous path
+        file_put_contents($completeUrl, file_get_contents($photo));
+            return true;
+
         $user = User::create([
-            'name' => request()->get('name'),
+            'gender_id' => request()->get('gender_id'),
+            'full_name' => request()-> get('full_name'),
             'email' => request()-> get('email'),
+            'password' => bcrypt(request()-> get('password')),
+            'age' => request()-> get('age'),
+            'location' => request()-> get('location'),
+            'bio' => request()-> get('bio'),
+            'profile_picture' => request()-> get('profile_picture'),
         ]);
 
         return response()->json([
@@ -53,9 +78,14 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        $this->validate($request, [
+            'email' => "string|required",
+            'password' => "string|required",
+        ]);
         $credentials = $request->only('email', 'password');
 
-        if ($token = $this->JWTAuth::attempt($credentials)) {
+        // return response()->json(["Hi" => "HELLO"]);
+        if ($token = JWTAuth::attempt($credentials)) {
             return $this->respondWithToken($token);
         }
 
