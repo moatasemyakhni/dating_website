@@ -39,14 +39,15 @@ class AuthController extends Controller
             ]);
         }
         $photo = request()->get('profile_picture');
-        // if(is_null($photo)) {
-            
-        // }
-        $data = explode(',', $photo);// to get the ext
-        $ext = explode(';', explode('/', $data[0])[1])[0];
-        $user = "user" . request()-> get('full_name') . "_" . time(); //unique it
-        $path = storage_path('/app/images/');
-        $completeUrl = $path . $user . "." . $ext;
+        if(is_null($photo)) {
+            $photo = storage_path('/app/images/default.png');
+        }else {
+            $data = explode(',', $photo);// to get the ext
+            $ext = explode(';', explode('/', $data[0])[1])[0];
+            $user = "user" . request()-> get('full_name') . "_" . time(); //unique it
+            $path = storage_path('/app/images/');
+            $completeUrl = $path . $user . "." . $ext;
+        }
 
         //Actually saving the photo in the previous path
         file_put_contents($completeUrl, file_get_contents($photo));
@@ -60,7 +61,7 @@ class AuthController extends Controller
             'age' => request()-> get('age'),
             'location' => request()-> get('location'),
             'bio' => request()-> get('bio'),
-            'profile_picture' => request()-> get('profile_picture'),
+            'profile_picture' => $photo,
         ]);
 
         return response()->json([
@@ -83,8 +84,6 @@ class AuthController extends Controller
             'password' => "string|required",
         ]);
         $credentials = $request->only('email', 'password');
-
-        // return response()->json(["Hi" => "HELLO"]);
         if ($token = JWTAuth::attempt($credentials)) {
             return $this->respondWithToken($token);
         }
