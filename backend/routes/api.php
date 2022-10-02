@@ -37,3 +37,4 @@ Route::group([
 });
 
 Route::get('getCountries', [PublicController::class, 'getCountriesAndCities']);
+Route::get('getCountries', [PublicController::class, 'getCountries']);

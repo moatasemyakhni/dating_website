@@ -11,4 +11,9 @@ class PublicController extends Controller
         $info = json_decode(file_get_contents(public_path("country.cities.list.json") ));
         return response()->json($info);
     }
+
+    function getCountries() {
+        $info = json_decode(file_get_contents(public_path("country.names.json") ));
+        return response()->json($info);
+    }
 }
