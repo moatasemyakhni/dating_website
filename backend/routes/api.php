@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PublicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,4 @@ Route::group([
 
 });
 
+Route::get('getCountries', [PublicController::class, 'getCountriesAndCities']);
