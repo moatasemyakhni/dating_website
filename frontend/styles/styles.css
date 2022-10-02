@@ -12,6 +12,12 @@ body {
     background-color: #f1f1f1;
 }
 
+.view-hidden {
+    width: 0px;
+    height: 0px;
+    transition: all 200ms;
+}
+
 .btn {
     padding: 5px;
     background-color: white;
