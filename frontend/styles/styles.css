@@ -131,14 +131,40 @@ body {
 .form {
     width: 80%;
     margin: 0 auto;
+    padding-top: 30px;
 }
 
 .form-title {
-    font-size: 14px;
+    font-size: 24px;
     border-bottom: 1px solid red;
     font-weight: 700;
     text-align: center;
 }
 
+.input {
+    margin: 15px 0;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.txt-area {
+    height: 100px;
+}
+
+.btn-submit {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.btn-submit:hover {
+    background-color: red;
+    color: white;
+}
+
+.btn-submit:active {
+    background-color: rgba(255, 0, 0, 0.5);
+}
 
 /* end of sign up section */

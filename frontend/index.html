@@ -53,10 +53,10 @@
                         <label for="female-gender">Female</label>
                     </div>
                 </div>
-                <input class="input" type="number" placeholder="Age...">
-                <input class="input" type="email" placeholder="Email...">
-                <input class="input" type="password" placeholder="Password...">
-                <input class="input" type="password" placeholder="Confirm Password...">
+                <input class="input" type="number" placeholder="Age..." id="age">
+                <input class="input" type="email" placeholder="Email..." id="signup-email">
+                <input class="input" type="password" placeholder="Password..." id="signup-password">
+                <input class="input" type="password" placeholder="Confirm Password..." id="password-repeat">
                 <select class="input" id="location-selector">
                     <!-- It will be done through js -->
                 </select>
@@ -71,14 +71,15 @@
                         <label for="female-gender-interest">Female</label>
                     </div>
                 </div>
-                <textarea class="input txt-area" id="bio" cols="30" rows="10" placeholder="Bio..."></textarea>
+                <textarea class="input txt-area" id="bio" cols="30" rows="5" placeholder="Bio..."></textarea>
                 <div class="img-wrapper">
-                    <label for="">
-                        <img width="30px" src="assets/images/logos/gallery_default.png" alt="">
+                    <label for="profile-photo">
+                        <img width="50px" src="assets/images/logos/gallery_default.png" alt="Gallery photo">
+                        <p>Choose profile picture</p>
                     </label>
-                    <input width="0" height="0px" type="file">
+                    <input class="view-none" type="file" id="profile-photo">
                 </div>
-                <a class="btn btn-link" href="#">Submit</a>
+                <button type="submit" class="btn btn-submit input" href="#" id="signup-submit-btn">Submit</button>
             </form>
         </section>
 
