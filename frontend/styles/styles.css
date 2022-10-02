@@ -15,6 +15,7 @@ body {
 .view-hidden {
     width: 0px;
     height: 0px;
+    overflow: hidden;
     transition: all 200ms;
 }
 
@@ -123,7 +124,7 @@ body {
 }
 /* end of hero section */
 
-/* start of sign up section */
+/* start of form section */
 .signup-section {
     width: 100%;
 }
@@ -136,9 +137,10 @@ body {
 
 .form-title {
     font-size: 24px;
-    border-bottom: 1px solid red;
+    border-bottom: 3px solid red;
     font-weight: 700;
     text-align: center;
+    padding-bottom: 2px;
 }
 
 .input {
@@ -168,4 +170,20 @@ body {
     background-color: rgba(255, 0, 0, 0.5);
 }
 
-/* end of sign up section */
+.choice-inputs > p {
+    font-size: 12px;
+}
+
+.choice-inputs > div {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.signup-img-wrapper > label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* end of form section */
