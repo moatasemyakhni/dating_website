@@ -122,3 +122,23 @@ body {
     color: white;
 }
 /* end of hero section */
+
+/* start of sign up section */
+.signup-section {
+    width: 100%;
+}
+
+.form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.form-title {
+    font-size: 14px;
+    border-bottom: 1px solid red;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+/* end of sign up section */
