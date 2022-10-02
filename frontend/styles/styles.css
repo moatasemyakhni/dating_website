@@ -180,6 +180,16 @@ body {
     padding-top: 5px;
 }
 
+.selector-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+.select-location {
+    width: 40%;
+    padding: 5px;
+}
+
 .signup-img-wrapper > label {
     display: flex;
     align-items: center;

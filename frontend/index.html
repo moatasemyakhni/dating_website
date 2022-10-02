@@ -59,9 +59,16 @@
                 <input class="input" type="email" placeholder="Email..." id="signup-email">
                 <input class="input" type="password" placeholder="Password..." id="signup-password">
                 <input class="input" type="password" placeholder="Confirm Password..." id="password-repeat">
-                <select class="input" id="location-selector">
-                    <!-- It will be done through js -->
-                </select>
+                <div class="selector-inputs">
+                    <select class="select-location" id="country-selector">
+                        <option value="noCountry" selected>Country</option>
+                        <!-- It will be done through js -->
+                    </select>
+                    <select class="select-location" id="city-selector">
+                        <option value="noCity" selected>City</option>
+                        <!-- It will be done through js -->
+                    </select>
+                </div>
                 <div class="choice-inputs">
                     <p>Interested in</p>
                     <div>
