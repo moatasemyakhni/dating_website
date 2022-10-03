@@ -6,28 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up() {
         Schema::table('users', function (Blueprint $table) {
-            //
             $table->foreignId('gender_id')->after('id')->references('id')->on('genders');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down() {
         Schema::table('users', function (Blueprint $table) {
-            //
             $table->dropColumn('gender_id');
         });
     }

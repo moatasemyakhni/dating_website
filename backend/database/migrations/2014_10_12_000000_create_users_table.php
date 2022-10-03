@@ -4,19 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+return new class extends Migration {
+    public function up() {
         Schema::create('users', function (Blueprint $table) {
             $table->id('id');
-            // $table->integer('gender_id');
-            //$table->foreign('gender_id')->references('gender_id')->on('genders');
             $table->string('full_name', 45);
             $table->string('email', 255)->unique();
             $table->string('password');
@@ -29,13 +20,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('users');
     }
 };
