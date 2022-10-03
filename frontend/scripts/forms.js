@@ -30,6 +30,29 @@ const loginUrl = formsBaseUrl + "/login";
 const loginEmail = document.getElementById('login-email');
 const loginPassword = document.getElementById('login-password');
 const loginSubmitBtn = document.getElementById('login-submit-btn');
+const loginErrMessage = document.getElementById('login-error-msg');
+
+loginSubmitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(!loginEmail.value || !loginPassword.value) {
+        loginErrMessage.textContent = "All fields are required";
+        loginErrMessage.classList.remove('view-none');
+        return;
+    }
+    const formData = new FormData();
+    formData.append('email', loginEmail.value);
+    formData.append('password', loginPassword.value);
+    axios.post(loginUrl, formData).then(resp => {
+        const data = resp.data;
+        if(data.error === 'none') {
+            loginErrMessage.classList.add('view-none');
+            localStorage.setItem('userToken', data.access_token)
+        }
+    }).catch(err => {
+        loginErrMessage.textContent = "Wrong password or Email";
+        loginErrMessage.classList.remove('view-none');
+    });
+});
 // signup info
 const signUpUrl = formsBaseUrl + "/register";
 const fullName = document.getElementById('full-name');
@@ -46,7 +69,7 @@ const interestFemale = document.getElementById('female-gender-interest');
 const bio = document.getElementById('bio');
 const profilePhoto = document.getElementById('profile-photo');
 const signupBtn = document.getElementById('signup-submit-btn');
-const errMessage = document.getElementById('error-msg');
+const errMessage = document.getElementById('signup-error-msg');
 
 signupBtn.addEventListener('click', (e) => {
     e.preventDefault();
