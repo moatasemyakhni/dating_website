@@ -37,4 +37,6 @@ Route::group([
 
 Route::get('get_countries_and_cities', [PublicController::class, 'getCountriesAndCities']);
 Route::get('get_countries', [PublicController::class, 'getCountries']);
+Route::post('check_email', [PublicController::class, 'checkEmail']);
+
 

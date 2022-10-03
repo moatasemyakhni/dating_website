@@ -41,6 +41,7 @@ class AuthController extends Controller
             $completeUrl = $path . $user . "." . $ext;
             //Actually saving the photo in the previous path
             file_put_contents($completeUrl, file_get_contents($photo));
+            $photo = $completeUrl;
         }
         $user = User::create([
             'gender_id' => request()->get('gender_id'),
@@ -50,7 +51,7 @@ class AuthController extends Controller
             'age' => request()-> get('age'),
             'location' => request()-> get('location'),
             'bio' => request()-> get('bio'),
-            'profile_picture' => $completeUrl,
+            'profile_picture' => $photo,
         ]);
 
         foreach(str_split(request()->get('interested')) as $value) {
