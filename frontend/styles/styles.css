@@ -16,7 +16,7 @@ body {
     width: 0px;
     height: 0px;
     overflow: hidden;
-    transition: all 200ms;
+    transition: all 500ms;
 }
 
 .view-none {
@@ -127,6 +127,8 @@ body {
 /* start of form section */
 .signup-section {
     width: 100%;
+    overflow: visible;
+    transition: all 500ms;
 }
 
 .form {
