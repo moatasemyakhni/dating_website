@@ -48,11 +48,11 @@
                     <p>Gender</p>
                     <div>
                         <div>
-                            <input type="radio" name="gender" id="male-gender">
+                            <input type="radio" name="gender" id="male-gender" value="2">
                             <label for="male-gender">Male</label>
                         </div>
                         <div>
-                            <input type="radio" name="gender" id="female-gender">
+                            <input type="radio" name="gender" id="female-gender" value="1">
                             <label for="female-gender">Female</label>
                         </div>
                     </div>
@@ -75,11 +75,11 @@
                     <p>Interested in</p>
                     <div>
                         <div>
-                            <input type="checkbox" name="gender" id="male-gender-interest">
+                            <input type="checkbox" name="gender" value="2" id="male-gender-interest">
                             <label for="male-gender-interest">Male</label>
                         </div>
                         <div>
-                            <input type="checkbox" name="gender" id="female-gender-interest">
+                            <input type="checkbox" name="gender" value="1" id="female-gender-interest">
                             <label for="female-gender-interest">Female</label>
                         </div>
                     </div>
@@ -92,7 +92,8 @@
                     </label>
                     <input class="view-none" type="file" id="profile-photo">
                 </div>
-                <button type="submit" class="btn btn-submit input" href="#" id="signup-submit-btn">Signup</button>
+                <button type="submit" class="btn btn-submit input" id="signup-submit-btn">Signup</button>
+                <p class="view-none input" id="error-msg"></p>
             </form>
         </section>
 
