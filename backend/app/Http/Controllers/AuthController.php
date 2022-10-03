@@ -22,7 +22,7 @@ class AuthController extends Controller
             "location" => "string|required",
             "bio" => "nullable",
             "profile_picture" => "string|nullable",
-            //"interested" => "required",
+            "interested" => "required",
         ]);
 
         if($validator->fails()) {
@@ -52,6 +52,10 @@ class AuthController extends Controller
             'bio' => request()-> get('bio'),
             'profile_picture' => $photo,
         ]);
+
+        foreach(str_split(request()->get('interested')) as $value) {
+            $user->genders()->attach(intval($value));
+        }
 
         if ($token = JWTAuth::attempt(['email' => request()->get('email'), 'password' => request()->get('password')])) {
             $tok = $this->respondWithToken($token);
