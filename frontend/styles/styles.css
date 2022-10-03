@@ -205,3 +205,26 @@ body {
 }
 
 /* end of form section */
+
+/* landing page */
+.navbar-landing-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-landing-links > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbar-profile {
+    width: 50px;
+    height: 50px;
+    background-image: url("http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/userJohn3_1664723095.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
