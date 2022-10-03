@@ -29,8 +29,8 @@ class AuthController extends Controller
             "password" => "string|min:6|max:999",
             "age" => "numeric|required|min:18",
             "location" => "string|required",
-            "bio" => "string",
-            "profile_picture" => "string",
+            "bio" => "nullable",
+            "profile_picture" => "string|nullable",
         ]);
 
         if($validator->fails()) {
@@ -47,12 +47,9 @@ class AuthController extends Controller
             $user = "user" . request()-> get('full_name') . "_" . time(); //unique it
             $path = storage_path('/app/images/');
             $completeUrl = $path . $user . "." . $ext;
+            //Actually saving the photo in the previous path
+            file_put_contents($completeUrl, file_get_contents($photo));
         }
-
-        //Actually saving the photo in the previous path
-        file_put_contents($completeUrl, file_get_contents($photo));
-            return true;
-
         $user = User::create([
             'gender_id' => request()->get('gender_id'),
             'full_name' => request()-> get('full_name'),
