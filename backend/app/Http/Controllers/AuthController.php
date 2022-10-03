@@ -137,6 +137,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl'),
+            'error' => 'none',
         ]);
     }
 
