@@ -237,4 +237,30 @@ body {
 .post {
     width: 100%;
     height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.post-content #post-img-1 {
+    width: 100%;
+    height: 250px;
+    background-image: url('../assets/images/cover_images/hero-img.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.post-text-container .text-content {
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.post-text-container .text-content > p {
+    font-weight: 700;
+}
+
+.btn-interest {
+    width: fit-content;
 }
