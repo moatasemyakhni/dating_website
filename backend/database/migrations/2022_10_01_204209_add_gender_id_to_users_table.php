@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->foreignId('gender_id')->after('user_id')->references('gender_id')->on('genders');
+            $table->foreignId('gender_id')->after('id')->references('id')->on('genders');
         });
     }
 

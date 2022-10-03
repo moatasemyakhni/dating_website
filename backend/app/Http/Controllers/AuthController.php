@@ -22,7 +22,7 @@ class AuthController extends Controller
             "location" => "string|required",
             "bio" => "nullable",
             "profile_picture" => "string|nullable",
-            ""
+            "interested" => "required",
         ]);
 
         if($validator->fails()) {
