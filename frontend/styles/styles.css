@@ -53,6 +53,8 @@ body {
     height: 60px;
     background-color: white;
     padding: 5px 10px;
+    position: fixed;
+    
 }
 
 .navbar {
@@ -227,6 +229,10 @@ body {
     background-size: cover;
     border-radius: 50%;
     cursor: pointer;
+}
+main {
+
+    padding-top: 80px;
 }
 
 .landing-main {
