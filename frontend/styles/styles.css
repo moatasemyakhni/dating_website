@@ -131,6 +131,12 @@ body {
     transition: all 500ms;
 }
 
+.login-section {
+    width: 100%;
+    overflow: visible;
+    transition: all 500ms;
+}
+
 .form {
     width: 80%;
     margin: 0 auto;
