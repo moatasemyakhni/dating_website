@@ -21,7 +21,7 @@ class AuthController extends Controller
             "age" => "numeric|required|min:18",
             "location" => "string|required",
             "bio" => "nullable",
-            "profile_picture" => "string|nullable",
+            "profile_picture" => "nullable",
             "interested" => "required",
         ]);
 
@@ -50,7 +50,7 @@ class AuthController extends Controller
             'age' => request()-> get('age'),
             'location' => request()-> get('location'),
             'bio' => request()-> get('bio'),
-            'profile_picture' => $photo,
+            'profile_picture' => $completeUrl,
         ]);
 
         foreach(str_split(request()->get('interested')) as $value) {
