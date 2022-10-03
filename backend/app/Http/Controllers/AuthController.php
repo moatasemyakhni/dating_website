@@ -10,15 +10,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-     /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
 
     public function register() {
         // validation
@@ -31,6 +22,7 @@ class AuthController extends Controller
             "location" => "string|required",
             "bio" => "nullable",
             "profile_picture" => "string|nullable",
+            ""
         ]);
 
         if($validator->fails()) {
@@ -61,9 +53,14 @@ class AuthController extends Controller
             'profile_picture' => $photo,
         ]);
 
+        if ($token = JWTAuth::attempt(['email' => request()->get('email'), 'password' => request()->get('password')])) {
+            $tok = $this->respondWithToken($token);
+        }
+
         return response()->json([
             'message' => 'User Created',
             'user' => $user,
+            'token' => $tok,
         ]);
     }
 
@@ -105,7 +102,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        $this->guard()->logout();
+        auth()->logout();
         // $this->guard()->JWTAuth::logout();
 
         return response()->json(['message' => 'Successfully logged out']);

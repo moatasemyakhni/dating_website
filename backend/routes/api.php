@@ -21,7 +21,6 @@ use App\Http\Controllers\PublicController;
 // });
 
 Route::group([
-
     'middleware' => 'api',
     'namespace' => 'App\Http\Controllers',
     'prefix' => 'auth',
@@ -38,3 +37,4 @@ Route::group([
 
 Route::get('get_countries_and_cities', [PublicController::class, 'getCountriesAndCities']);
 Route::get('get_countries', [PublicController::class, 'getCountries']);
+
