@@ -3,7 +3,7 @@ const signupFormCaller = document.getElementById('signup-form-caller');
 const loginFormCallers = document.querySelectorAll('.login-form-caller');
 const signupSection = document.getElementById('signup-section');
 const loginSection = document.getElementById('login-section');
-
+const links = "http://192.168.56.1:5501/frontend";
 
 signupFormCaller.addEventListener('click', () => {
     signupSection.classList.toggle('view-hidden');
@@ -47,6 +47,8 @@ loginSubmitBtn.addEventListener('click', (e) => {
         if(data.error === 'none') {
             loginErrMessage.classList.add('view-none');
             localStorage.setItem('userToken', data.access_token)
+            console.log("login")
+            window.location.href = links + "/landing_page.html"
         }
     }).catch(err => {
         loginErrMessage.textContent = "Wrong password or Email";
@@ -134,7 +136,7 @@ signupBtn.addEventListener('click', (e) => {
         const geoLocationUrl = `https://api.opencagedata.com/geocode/v1/json?q=${city.value}&key=b3cd495a7c2b4fcfafa46a2806da89fa`;
         axios.get(geoLocationUrl).then(resp => {
             const location = resp.data.results[0].geometry;
-            const loc = `@${location.lat}, ${location.lng}`;
+            const loc = `@${location.lat},${location.lng}`;
             formData.append('gender_id', gender);
             formData.append('full_name', fullName.value);
             formData.append('age', age.value);
@@ -158,7 +160,12 @@ signupBtn.addEventListener('click', (e) => {
         
                 axios.post(signUpUrl, formData).then(response => {
                     const data = response.data;
-                    localStorage.setItem('userToken', data.token.access_token);
+                    
+                console.log("signup")
+                    console.log(data.token.original.access_token);
+                    localStorage.setItem('userToken', data.token.original.access_token);
+                    
+                    window.location.href = links + "/landing_page.html"
                 });
             }
         });
