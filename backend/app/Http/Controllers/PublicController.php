@@ -19,9 +19,9 @@ class PublicController extends Controller {
     function checkEmail(Request $req) {
         $userEmail = User::where('email', $req->email)->count();
         if($userEmail === 0) {
-            return json_encode(['available', true]);
+            return json_encode(['available' => true]);
         }
-        return json_encode(['available', false]);
+        return json_encode(['available' => false]);
 
     }
 }

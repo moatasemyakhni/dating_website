@@ -8,8 +8,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller {
+
+    // I wrote it in the api.php but it did not work
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
 
     public function register() {
         $validator = validator()->make(request()->all(), [
@@ -30,7 +34,7 @@ class AuthController extends Controller
             ]);
         }
         $photo = request()->get('profile_picture');
-        if(is_null($photo)) {
+        if(is_null($photo) || !$photo || $photo == 'null') {
             $photo = storage_path('/app/images/default.png');
         }else {
             $data = explode(',', $photo);// to get the ext
@@ -82,7 +86,7 @@ class AuthController extends Controller
     }
 
     public function me() {
-        return response()->json($this->guard()->user());
+        return response()->json(auth()->user());
     }
 
     public function logout() {
