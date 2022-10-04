@@ -48,9 +48,6 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
         });
     });
 
-
-    // used this preference to get the mathematical expression
-    //https://stackoverflow.com/questions/50452059/sort-data-by-closest-geolocation-with-filtering
     const getDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // km
     const dLat = toRad(lat2-lat1);
