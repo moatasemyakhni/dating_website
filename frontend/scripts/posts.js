@@ -10,18 +10,18 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
     const getAllUrl = baseUrl + "/hey";
     axios.get(getAllUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(resp => {
         const d = resp.data;
-        console.log(d);
+        // to sort the users
         const allUsers = [];
         d.forEach(user => {
             const arr = user.location.split('@')[1];
             const lon = parseFloat(arr.split(',')[0]);
             const lat = parseFloat(arr.split(',')[1]);
             const distance = getDistance(myLon, myLat, lon, lat);
-            console.log(lon, lat);
-            allUsers.push({"id": user.id, "name": user.full_name, "location": ""})
-            createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, distance);
+            allUsers.push({"id": user.id, "profile_picture": user.profile_picture, "full_name": user.full_name, "age": user.age, "bio": user.bio, "distance": distance});
+            
         });
-
+        allUsers.sort((a, b) => a.distance - b.distance);
+        allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
     });
 
 
