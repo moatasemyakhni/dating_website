@@ -1,12 +1,25 @@
+const baseUrl = "http://127.0.0.1:8000/api";
 const landingMain = document.getElementById('landing-main');
 
-const createPost = (id, name, age, loc, distance) => {
+const getAllUrl = baseUrl + "/hey";
+axios.get(getAllUrl).then(resp => {
+    const d = resp.data;
+    console.log(d);
+    d.forEach(user => {
+        createPost(user.id, 'http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/userJohn3_1664723095.jpeg', user.full_name, user.age, user.location, 4);
+    });
+
+});
+
+
+const createPost = (id, img, name, age, loc, distance) => {
     const divPost = document.createElement('div');
     divPost.setAttribute('class', 'post');
 
     const imgWrapper = document.createElement('div');
     imgWrapper.setAttribute('class', 'post-img');
     imgWrapper.setAttribute('id', `post-img-${id}`);
+    imgWrapper.style.backgroundImage = `url(${img})`;
     
     const postTextContainer = document.createElement('div');
     postTextContainer.setAttribute('class', 'post-text-container');
@@ -48,4 +61,9 @@ const createPost = (id, name, age, loc, distance) => {
     
     postTextContainer.appendChild(textContent1);
     postTextContainer.appendChild(textContent2);
+
+    divPost.appendChild(imgWrapper);
+    divPost.appendChild(postTextContainer);
+
+    landingMain.appendChild(divPost);
 }
