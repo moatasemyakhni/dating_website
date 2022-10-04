@@ -276,3 +276,7 @@ main {
 .btn-interest {
     width: fit-content;
 }
+
+.btn-wrapper {
+    display: flex;
+}
