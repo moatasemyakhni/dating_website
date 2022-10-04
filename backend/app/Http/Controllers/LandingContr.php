@@ -19,6 +19,10 @@ class LandingContr extends Controller {
     }
 
     function addToInterest(Request $req) {
-        
+        $user = Auth::user()->id;
+        $users = User::find($user);
+        $favours = $req->get('favour_user_id');
+        $users->userFavorites()->attach($favours);
+        return response()->json(['add' => true]);
     }
 }

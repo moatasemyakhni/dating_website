@@ -114,18 +114,4 @@ class AuthController extends Controller {
     public function guard() {
         return Auth::guard();
     }
-
-    function getUsers(Request $req) {
-        // $user = Auth::user();
-        // $users = User::all('location');
-        // $usersArr = [];
-        // foreach($users as $user) {
-        //     $usersArr[] = $user;
-        // }
-        // return $usersArr[0]->location;
-        $users = Auth::user();
-        dd($users);
-        $user = User::all();
-        return $user;
-    }
 }

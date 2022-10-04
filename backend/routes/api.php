@@ -13,7 +13,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
+
     Route::get('users', [LandingContr::class, 'getUsers']);
+    Route::post('interests', [LandingContr::class, 'addToInterest']);
     
 });
 
