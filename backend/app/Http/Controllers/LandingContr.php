@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LandingContr extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth:api');
+    }
+
     function getUsers(Request $req) {
-        // $user = Auth::user();
-        // $users = User::all('location');
-        // $usersArr = [];
-        // foreach($users as $user) {
-        //     $usersArr[] = $user;
-        // }
-        // return $usersArr[0]->location;
         $user = User::all();
         return $user;
     }
