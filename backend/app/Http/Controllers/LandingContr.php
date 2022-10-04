@@ -14,19 +14,15 @@ class LandingContr extends Controller {
 
     function getUsers(Request $req) {
         $userID = Auth::user()->id;
-        $users = User::all()
-                    ->where('id', '!=', $userID);
+        $arr = [];
+        $displayInterest = $this->displayInterest();
+        foreach($displayInterest->original as $key => $val) {
+            $arr[] = $val->id;
+        }
         
-        // $users = User::whereHas('userFavorites', function($query) {
-        //     $userID = Auth::user()->id;
-        //     $query->where('user_id', "!=", $userID);
-        // })->get();
-        // $users = User::whereDoesntHave('userFavorites', function($query) use ($userID) {
-        //     $query->where([
-        //         ['user_id', $userID],
-        //         ['favours_user_id', '!=', $userID],
-        //     ]);
-        // })->get();
+        $users = User::all()
+                    ->where('id', '!=', $userID)
+                    ->whereNotIn('id', $arr);
         return $users;
     }
 
@@ -38,7 +34,7 @@ class LandingContr extends Controller {
         return response()->json(['add' => true]);
     }
 
-    function displayInterest(Request $req) {
+    function displayInterest() {
         $uid = Auth::user()->id;
         $user = User::find($uid);
         $arr = [];
