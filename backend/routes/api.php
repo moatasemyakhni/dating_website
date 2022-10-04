@@ -16,7 +16,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('users', [LandingContr::class, 'getUsers']);
     Route::post('interests', [LandingContr::class, 'addToInterest']);
-    Route::post('check_interest', [LandingContr::class, 'checkInterest']);
+    Route::get('user_interest_list', [LandingContr::class, 'displayInterest']);
     
 });
 

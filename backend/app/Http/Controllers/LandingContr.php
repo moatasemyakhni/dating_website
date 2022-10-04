@@ -38,15 +38,23 @@ class LandingContr extends Controller {
         return response()->json(['add' => true]);
     }
 
-    function checkInterest(Request $req) {
+    function displayInterest(Request $req) {
         $uid = Auth::user()->id;
         $user = User::find($uid);
-        $interestInWho = $user->userFavorites()->pluck('favours_user_id', 'user_id');
-        $count = $interestInWho->count();
-        if($count == 0) {
+        $arr = [];
+        foreach($user->userFavorites()->pluck('user_id', 'favours_user_id') as $key => $val) {
+            $arr[$key] = $val;
+        }
+        //$count = $interestInWho->count();
+        if(sizeof($arr) == 0) {
             return response()->json(['count' => 0]);
         }
-        return $interestInWho;
+        $users = [];
+        foreach($arr as $key => $val) {
+            $user = User::find($key);
+            $users[] = $user;
+        }
+        return response()->json($users);
 
     }
 }
