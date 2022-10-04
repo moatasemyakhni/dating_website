@@ -1,7 +1,9 @@
 const baseUrl = "http://127.0.0.1:8000/api/auth";
 const userInfoUrl = baseUrl+"/me";
+const navbarProfile = document.getElementById('navbar-profile');
 axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(dataUser => {
     const myInfo = dataUser.data;
+    navbarProfile.style.backgroundImage = `url('${myInfo.profile_picture}')`;
     const lonLat = myInfo.location.split('@')[1];
     const myLon = parseFloat(lonLat.split(',')[0]);
     const myLat = parseFloat(lonLat.split(',')[1]);
@@ -38,7 +40,7 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
         Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     const d = R * c;
-    return d;
+    return d.toFixed(2);
     }
 
     const toRad = (value) => {
