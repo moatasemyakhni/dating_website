@@ -131,7 +131,7 @@ signupBtn.addEventListener('click', (e) => {
         
         errMessage.classList.add('view-none');
         //geolocation api
-        const geoLocationUrl = `https://api.opencagedata.com/geocode/v1/json?q=Tripoli, Lebanon&key=b3cd495a7c2b4fcfafa46a2806da89fa`;
+        const geoLocationUrl = `https://api.opencagedata.com/geocode/v1/json?q=${city.value}&key=b3cd495a7c2b4fcfafa46a2806da89fa`;
         axios.get(geoLocationUrl).then(resp => {
             const location = resp.data.results[0].geometry;
             const loc = `@${location.lat}, ${location.lng}`;
@@ -141,8 +141,7 @@ signupBtn.addEventListener('click', (e) => {
             formData.append('location', loc);
             formData.append('bio', biography);
             formData.append('interested', interestGender);
-        
-            if(!profilePhoto.files['length'] <= 0) {
+            if(profilePhoto.files['length'] > 0) {
                 const reader = new FileReader();
                 reader.addEventListener('load', () => {
                     const photo = reader.result;
@@ -155,11 +154,10 @@ signupBtn.addEventListener('click', (e) => {
                 });
                 reader.readAsDataURL(profilePhoto.files[0]);
             }else {
-                formData.append('profile_picture', null);
+                formData.append('profile_picture', 'null');
         
                 axios.post(signUpUrl, formData).then(response => {
                     const data = response.data;
-                    console.log(data.token.original.access_token);
                     localStorage.setItem('userToken', data.token.access_token);
                 });
             }
