@@ -12,13 +12,16 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
     const myLat = parseFloat(lonLat.split(',')[1]);
 
     axios.get(getFavorite , {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(data => {
+        const allUsers = [];
         data.data.forEach(element => {
             const arr = element.location.split('@')[1];
             const lon = parseFloat(arr.split(',')[0]);
             const lat = parseFloat(arr.split(',')[1]);
             const distance = getDistance(myLon, myLat, lon, lat);
-            createPost(element.id, element.profile_picture, element.full_name, element.age, element.bio, distance);
+            allUsers.push({"id": element.id, "profile_picture": element.profile_picture, "full_name": element.full_name, "age": element.age, "bio": element.bio, "distance": distance});
         });
+        allUsers.sort((a, b) => a.distance - b.distance);
+        allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
     });
     const getDistance = (lat1, lon1, lat2, lon2) => {
         const R = 6371; // km
