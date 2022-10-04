@@ -20,7 +20,7 @@ body {
 }
 
 .view-none {
-    display: none;
+    display: none !important;
 }
 
 .btn {

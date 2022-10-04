@@ -1,6 +1,8 @@
 const baseUrl = "http://127.0.0.1:8000/api/auth";
 const userInfoUrl = baseUrl+"/me";
 const navbarProfile = document.getElementById('navbar-profile');
+
+// user session
 axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(dataUser => {
     const myInfo = dataUser.data;
     navbarProfile.style.backgroundImage = `url('${myInfo.profile_picture}')`;
@@ -10,11 +12,12 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
     const landingMain = document.getElementById('landing-main');
 
     const getAllUrl = baseUrl + "/users";
+    // get other users
     axios.get(getAllUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(resp => {
         const d = resp.data;
         // to sort the users
         const allUsers = [];
-        d.forEach(user => {
+        Object.values(d).forEach(user => {
             const arr = user.location.split('@')[1];
             const lon = parseFloat(arr.split(',')[0]);
             const lat = parseFloat(arr.split(',')[1]);
@@ -24,6 +27,25 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
         });
         allUsers.sort((a, b) => a.distance - b.distance);
         allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
+        // add to interest (DMs)
+        allUsers.forEach(user => {
+            const interestedBtn = document.getElementById(`interested-in-${user.id}`);
+            interestedBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const interestUrl = baseUrl + '/interests';
+                const dataForm = new FormData();
+                dataForm.append('favour_user_id', user.id);
+                axios.post(interestUrl, dataForm, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}});
+                const posts = document.querySelectorAll('.post');
+                posts.forEach(post => {
+                    console.log(post.lastChild.id === `interested-in-${user.id}`);
+                    if(post.lastChild.id == `interested-in-${user.id}`) {
+                        post.classList.add('view-none');
+                    }
+                });
+
+            });
+        });
     });
 
 
