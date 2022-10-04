@@ -4,10 +4,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMs</title>
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    user_interest_list
+    <!-- Navbar -->
+    <header class="navbar-container">
+        <!-- Logo -->
+        <nav class="navbar">
+            <a class="navbar-icon-container" href="#">
+                <object width="48" height="48" data="assets/images/icons/heart.svg">
+                </object>
+                
+                <h2 class="navbar-title">Match</h2>
+            </a>
+            <!-- Links -->
+            <div class="navbar-landing-links">
+                <a class="btn btn-link" href="favorite_users.html" id="dm-caller">DMs</a>
+                <div id="navbar-profile">
+
+                </div>
+            </div>
+        </nav>
+    </header>
     <script src="./node_modules/axios/dist/axios.min.js"></script>
-    <script src="scripts/posts.js"></script>
+    <script src="scripts/favorite.js"></script>
 </body>
 </html>
