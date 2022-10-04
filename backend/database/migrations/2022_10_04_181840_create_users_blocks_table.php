@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up() {
         Schema::create('users_blocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('blocked_id')->constrained()->references('id')->on('users');
+            $table->foreignId('blocker_id')->constrained()->references('id')->on('users');
             $table->foreignId('blocked_id')->constrained()->references('id')->on('users');
             $table->timestamps();
         });
