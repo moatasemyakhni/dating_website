@@ -9,8 +9,9 @@ return new class extends Migration {
     public function up() {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->references('id')->on('users');
-            $table->foreignId('favours_user_id')->constrained()->references('id')->on('users');
+            $table->foreignId('sender_id')->constrained()->references('id')->on('users');
+            $table->foreignId('receiver_id')->constrained()->references('id')->on('users');
+            $table->string('content');
             $table->timestamps();
         });
     }
