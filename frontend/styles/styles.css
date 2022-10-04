@@ -248,7 +248,7 @@ main {
     gap: 15px;
 }
 
-.post-content #post-img-1 {
+.post-content .post-img {
     width: 100%;
     height: 250px;
     background-image: url('../assets/images/cover_images/hero-img.jpg');
