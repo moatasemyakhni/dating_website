@@ -13,7 +13,12 @@ class LandingContr extends Controller {
     }
 
     function getUsers(Request $req) {
-        $user = User::all();
-        return $user;
+        $userID = Auth::user()->id;
+        $users = User::all()->where('id', '!=', $userID);
+        return $users;
+    }
+
+    function addToInterest(Request $req) {
+        
     }
 }
