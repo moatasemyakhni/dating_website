@@ -3,7 +3,7 @@ const signupFormCaller = document.getElementById('signup-form-caller');
 const loginFormCallers = document.querySelectorAll('.login-form-caller');
 const signupSection = document.getElementById('signup-section');
 const loginSection = document.getElementById('login-section');
-const links = "http://192.168.56.1:5501/frontend";
+
 
 signupFormCaller.addEventListener('click', () => {
     signupSection.classList.toggle('view-hidden');
@@ -48,7 +48,7 @@ loginSubmitBtn.addEventListener('click', (e) => {
             loginErrMessage.classList.add('view-none');
             localStorage.setItem('userToken', data.access_token)
             console.log("login")
-            window.location.href = links + "/landing_page.html"
+            window.location.href = "http://192.168.56.1:5501/frontend/landing_page.html"
         }
     }).catch(err => {
         loginErrMessage.textContent = "Wrong password or Email";
@@ -161,11 +161,10 @@ signupBtn.addEventListener('click', (e) => {
                 axios.post(signUpUrl, formData).then(response => {
                     const data = response.data;
                     
-                console.log("signup")
                     console.log(data.token.original.access_token);
                     localStorage.setItem('userToken', data.token.original.access_token);
                     
-                    window.location.href = links + "/landing_page.html"
+                    window.location.href = "http://192.168.56.1:5501/frontend/landing_page.html"
                 });
             }
         });
