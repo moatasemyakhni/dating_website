@@ -7,7 +7,7 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
     const myLat = parseFloat(lonLat.split(',')[1]);
     const landingMain = document.getElementById('landing-main');
 
-    const getAllUrl = baseUrl + "/hey";
+    const getAllUrl = baseUrl + "/users";
     axios.get(getAllUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(resp => {
         const d = resp.data;
         // to sort the users
