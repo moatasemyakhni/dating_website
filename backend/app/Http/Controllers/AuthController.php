@@ -36,14 +36,18 @@ class AuthController extends Controller {
         $photo = request()->get('profile_picture');
         if(is_null($photo) || !$photo || $photo == 'null') {
             $photo = storage_path('/app/images/default.png');
+            $photo = "http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/default.png";
         }else {
             $data = explode(',', $photo);// to get the ext
             $ext = explode(';', explode('/', $data[0])[1])[0];
             $user = "user" . request()-> get('full_name') . "_" . time(); //unique it
-            $path = storage_path('/app/images/');
+            //$path = ;
+            // to avoid local absolute path problem.
+            $path = "http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/";
             $completeUrl = $path . $user . "." . $ext;
+            $completeUrl2 = storage_path('/app/images/') . $user . "." . $ext;
             //Actually saving the photo in the previous path
-            file_put_contents($completeUrl, file_get_contents($photo));
+            file_put_contents($completeUrl2, file_get_contents($photo));
             $photo = $completeUrl;
         }
         $user = User::create([
