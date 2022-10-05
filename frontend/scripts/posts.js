@@ -1,9 +1,10 @@
 const baseUrl = "http://127.0.0.1:8000/api/auth";
 const userInfoUrl = baseUrl+"/me";
 const navbarProfile = document.getElementById('navbar-profile');
+const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
 
 // user session
-axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(dataUser => {
+axios.get(userInfoUrl, config).then(dataUser => {
     const myInfo = dataUser.data;
     navbarProfile.style.backgroundImage = `url('${myInfo.profile_picture}')`;
     const lonLat = myInfo.location.split('@')[1];
@@ -13,7 +14,7 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
 
     const getAllUrl = baseUrl + "/users";
     // get other users
-    axios.get(getAllUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(resp => {
+    axios.get(getAllUrl, config).then(resp => {
         const d = resp.data;
         // to sort the users
         const allUsers = [];
@@ -35,7 +36,7 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
                 const interestUrl = baseUrl + '/interests';
                 const dataForm = new FormData();
                 dataForm.append('favour_user_id', user.id);
-                axios.post(interestUrl, dataForm, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}});
+                axios.post(interestUrl, dataForm, config);
                 const posts = document.querySelectorAll('.post');
                 posts.forEach(post => {
                     if(post.lastChild.id == `interested-in-${user.id}`) {

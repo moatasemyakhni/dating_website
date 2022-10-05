@@ -1,9 +1,46 @@
 const baseUrl = "http://127.0.0.1:8000/api/auth";
-
+const userInfoUrl = baseUrl+"/me";
+const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
 // get block list api
 const getBlockUrl = baseUrl + "/get_blocked";
 
-axios.get().then(myData => {
+axios.get(userInfoUrl, config).then(myData => {
+    const myInfo = myData.data;
+    const lonLat = myInfo.location.split('@')[1];
+    const myLon = parseFloat(lonLat.split(',')[0]);
+    const myLat = parseFloat(lonLat.split(',')[1]);
+    const landingMain = document.getElementById('landing-main');
+
+    axios.get(getBlockUrl, config).then(resp => {
+        const d = resp.data;
+        Object.values(d).forEach(user => {
+            const arr = user.location.split('@')[1];
+            const lon = parseFloat(arr.split(',')[0]);
+            const lat = parseFloat(arr.split(',')[1]);
+            const distance = getDistance(myLon, myLat, lon, lat);
+            createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, distance);
+            
+        });
+    })
+
+    const getDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371; // km
+        const dLat = toRad(lat2-lat1);
+        const dLon = toRad(lon2-lon1);
+        lat1 = toRad(lat1);
+        lat2 = toRad(lat2);
+    
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        const d = R * c;
+        return d.toFixed(2);
+    }
+
+    const toRad = (value) => {
+        return value * Math.PI / 180;
+    }
+
     const createPost = (id, img, name, age, bio, distance) => {
         const divPost = document.createElement('div');
         divPost.setAttribute('class', 'post');
@@ -66,6 +103,4 @@ axios.get().then(myData => {
 
         landingMain.appendChild(divPost);
     }
-}).catch(() => {
-    window.location.href = "http://192.168.56.1:5501/frontend/";
 });
