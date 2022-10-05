@@ -298,14 +298,17 @@ main {
     bottom: 10px;
 }
 
-.box input {
+.box textarea {
     font-size: 18px;
-    width: 80%;
+    width: 70%;
     padding: 5px;
+    height: 80px;
+    resize: none;
 }
 
 .box button {
-    width: 10%;
+    width: 20%;
+    cursor: pointer;
 }
 
 .send-icon {
