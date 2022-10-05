@@ -41,7 +41,6 @@ class LandingContr extends Controller {
         foreach($user->userFavorites()->pluck('user_id', 'favours_user_id') as $key => $val) {
             $arr[$key] = $val;
         }
-        //$count = $interestInWho->count();
         if(sizeof($arr) == 0) {
             return response()->json(['count' => 0]);
         }
@@ -62,5 +61,23 @@ class LandingContr extends Controller {
         // delete from favorites
         $user->userFavorites()->detach($blockedID);
         return response()->json(['blocked' => true]);
+    }
+
+    function getBlock() {
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
+        $arr = [];
+        foreach($user->blockedList()->pluck('blocker_id', 'blocked_id') as $key => $val) {
+            $arr[$key] = $val;
+        }
+        if(sizeof($arr) == 0) {
+            return response()->json(['count' => 0]);
+        }
+        $users = [];
+        foreach($arr as $key => $val) {
+            $user = User::find($key);
+            $users[] = $user;
+        }
+        return response()->json($users);
     }
 }
