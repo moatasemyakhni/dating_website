@@ -127,7 +127,6 @@ class LandingContr extends Controller {
         foreach($senderObj as $val) {
             $senderArr[] = $val;
         }
-
         // receiver is actually sender2
         $receiver = User::find($req->get('receiver_id'));
         $receiverObj = $receiver->messages
@@ -136,7 +135,8 @@ class LandingContr extends Controller {
         foreach($receiverObj as $val) {
             $receiverArr[] = $val;
         }
-
+        // we will need receiver personal info for chat purpose
+        $receiverArr[] = User::find($req->get('receiver_id'));
         $wholeConvo = array_merge($senderArr, $receiverArr);
          usort($wholeConvo, function($a, $b) {
             return strtotime($a->created_at) - strtotime($b->created_at);
