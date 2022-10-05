@@ -38,7 +38,6 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
                 axios.post(interestUrl, dataForm, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}});
                 const posts = document.querySelectorAll('.post');
                 posts.forEach(post => {
-                    console.log(post.lastChild.id === `interested-in-${user.id}`);
                     if(post.lastChild.id == `interested-in-${user.id}`) {
                         post.classList.add('view-none');
                     }

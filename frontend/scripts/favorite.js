@@ -1,17 +1,21 @@
+
 const baseUrl = "http://127.0.0.1:8000/api/auth";
 const getFavorite = baseUrl + "/user_interest_list";
 const userInfoUrl = baseUrl+"/me";
 const favoriteMain = document.getElementById('favorite-main');
 const navbarProfile = document.getElementById('navbar-profile');
-
-axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(resp => {
-    
+const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
+// get user info from token
+axios.get(userInfoUrl, config).then(resp => {
+    // change profile picture to his profile picture
     navbarProfile.style.backgroundImage = `url('${resp.data.profile_picture}')`;
+    // get user lon and lat to measure the distance later with other users
     const lonLat = resp.data.location.split('@')[1];
     const myLon = parseFloat(lonLat.split(',')[0]);
     const myLat = parseFloat(lonLat.split(',')[1]);
 
-    axios.get(getFavorite , {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}}).then(data => {
+    // get the favorite users of user
+    axios.get(getFavorite , config).then(data => {
         const allUsers = [];
         data.data.forEach(element => {
             const arr = element.location.split('@')[1];
@@ -22,7 +26,30 @@ axios.get(userInfoUrl, {headers: {'Authorization': `Bearer ${localStorage.getIte
         });
         allUsers.sort((a, b) => a.distance - b.distance);
         allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
+
+        // block api
+        const blockUrl = baseUrl + "/block";
+        allUsers.forEach(user => {
+            const blockBtn = document.getElementById(`block-${user.id}`);
+            const formData = new FormData();
+            formData.append('blocked_id', user.id);
+            
+            blockBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                axios.post(blockUrl, formData, config).then(() => {
+                    const posts = document.querySelectorAll('.post');
+                    posts.forEach(post => {
+                        // blocked cannot be shown again
+                        if(post.lastChild.lastChild.id == `block-${user.id}`) {
+                            post.classList.add('view-none');
+                        }
+                    });
+                });
+            });
+        });
     });
+
+
     const getDistance = (lat1, lon1, lat2, lon2) => {
         const R = 6371; // km
         const dLat = toRad(lat2-lat1);
