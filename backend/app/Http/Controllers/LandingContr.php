@@ -94,4 +94,11 @@ class LandingContr extends Controller {
         $user->blockedList()->detach($blockedID);
         return response()->json(['unblocked' => true]);
     }
+
+    function getUserInterests() {
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
+        $genders = $user->genders()->pluck('gender_id');
+        return $genders;
+    }
 }
