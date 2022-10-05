@@ -7,9 +7,41 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div class="messages">
+     <!-- Navbar -->
+     <header class="navbar-container">
+        <!-- Logo -->
+        <nav class="navbar">
+            <a class="navbar-icon-container" href="landing_page.html">
+                <object width="48" height="48" data="assets/images/icons/heart.svg">
+                </object>
+                
+                <h2 class="navbar-title">Match</h2>
+            </a>
+            <!-- Links -->
+            <div class="navbar-landing-links">
+                <!-- Dm is for location of favorite users -->
+                <a class="btn btn-link" href="favorite_users.html" id="dm-caller">DMs</a>
+                <!-- profile photo where we can edit, logout and see blocked list -->
+                <a href="settings.html">
+                    <div id="navbar-profile">
 
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="messages">
+        <!-- will be displayed by js -->
+        <div class="message">
+            <div class="header-message">
+                <div class="img-message"></div>
+                <p>Full Name</p>
+                <p class="small">10 days ago</p>
+            </div>
+        </div>
     </div>
+
     <div class="box">
         <textarea type="text" placeholder="Send Message..."></textarea>
         <button class="btn btn-send">
