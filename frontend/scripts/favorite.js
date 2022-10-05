@@ -119,7 +119,7 @@ axios.get(userInfoUrl, config).then(resp => {
         postTextContainer.appendChild(textContent2);
         
         const interestBtn = document.createElement('button');
-        interestBtn.setAttribute('class', 'btn btn-hero btn-interest');
+        interestBtn.setAttribute('class', 'btn btn-hero btn-interest chats');
         interestBtn.setAttribute('id', `chat-with-${id}`);
         interestBtn.textContent = "Chat";
 
