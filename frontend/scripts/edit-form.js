@@ -17,6 +17,29 @@ axios.get(myInfoUrl, config).then(myData => {
     const signupBtn = document.getElementById('signup-submit-btn');
     const errMessage = document.getElementById('signup-error-msg');
 
+    e.preventDefault();
+    let interestGender = "";
+    if(!fullName.value || (!femaleGender.checked && !maleGender.checked) || !age.value || !signupEmail.value || !signupPassword.value || !passwordRepeat.value || country.value==="noCountry" || city.value==="noCity" || (!interestMale.checked && !interestFemale.checked)) {
+        errMessage.textContent = "Required Field";
+        errMessage.classList.remove('view-none');
+        return;
+    }
+let biography;
+    if(!bio.value) {
+        biography = null;
+    }else {
+        biography = bio.value;
+    }
+    let gender;
+    if(maleGender.checked) {
+        gender = maleGender.value;
+    }else {
+        gender = femaleGender.value;
+    }
+    if(interestMale.checked)
+        interestGender += interestMale.value;
+    if(interestFemale.checked)
+        interestGender += interestFemale.value;
 
     const nameValidation = (name) => {
         const exp = /^[A-Za-z\s]{5,255}$/
