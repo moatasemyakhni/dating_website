@@ -22,6 +22,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('user_interest_list', [LandingContr::class, 'displayInterest']);
     Route::get('users', [LandingContr::class, 'getUsers']);
     Route::get('get_blocked', [LandingContr::class, 'getBlock']);
+    Route::post('remove_block', [LandingContr::class], 'removeBlock');
 });
 
     

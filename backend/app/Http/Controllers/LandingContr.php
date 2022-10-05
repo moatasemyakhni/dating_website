@@ -80,4 +80,12 @@ class LandingContr extends Controller {
         }
         return response()->json($users);
     }
+
+    function removeBlock(Request $req) {
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
+        $blockedID = $req->get('blocked_id');
+        $user->blockedList()->detach($blockedID);
+        return response()->json(['unblocked' => true]);
+    }
 }
