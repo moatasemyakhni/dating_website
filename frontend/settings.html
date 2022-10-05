@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar-container">
+        <!-- Logo -->
+        <nav class="navbar">
+            <a class="navbar-icon-container" href="landing_page.html">
+                <object width="48" height="48" data="assets/images/icons/heart.svg">
+                </object>
+                
+                <h2 class="navbar-title">Match</h2>
+            </a>
+            <!-- Links -->
+            <div class="navbar-landing-links">
+                <!-- Dm is for location of favorite users -->
+                <a class="btn btn-link" href="favorite_users.html" id="dm-caller">DMs</a>
+                <!-- logout btn -->
+                <a class="btn btn-link" id="logout-btn" href="index.html">logout</a>
+            </div>
+        </nav>
+    </header>
+    <main class="main-container">
+        <div class="block-btn-wrapper">
+            <a class="btn btn-link" href="blocked_list.html">Blocked List</a>
+        </div>
+        <section class="" id="signup-section">
+            <form class="form" action="index.html" method="post">
+                <h3 class="form-title">Edit Form</h3>
+                <input class="input" type="text" placeholder="Full name..." id="full-name">
+                <div class="choice-inputs">
+                    <p>Gender</p>
+                    <div>
+                        <div>
+                            <input type="radio" name="gender" id="male-gender" value="2">
+                            <label for="male-gender">Male</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="gender" id="female-gender" value="1">
+                            <label for="female-gender">Female</label>
+                        </div>
+                    </div>
+                </div>
+                <input class="input" type="number" placeholder="Age..." id="age">
+                <div class="choice-inputs">
+                    <p>Interested in</p>
+                    <div>
+                        <div>
+                            <input type="checkbox" name="gender" value="2" id="male-gender-interest">
+                            <label for="male-gender-interest">Male</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="gender" value="1" id="female-gender-interest">
+                            <label for="female-gender-interest">Female</label>
+                        </div>
+                    </div>
+                </div>
+                <textarea class="input txt-area" id="bio" cols="30" rows="5" placeholder="Bio..."></textarea>
+                <div class="signup-img-wrapper">
+                    <label for="profile-photo">
+                        <img id="update-img" width="50px" src="assets/images/logos/gallery_default.png" alt="Gallery photo">
+                        <p>Choose profile picture</p>
+                    </label>
+                    <input class="view-none" type="file" id="profile-photo">
+                </div>
+                <button type="submit" class="btn btn-submit input" id="update-submit-btn">Update</button>
+                <p class="view-none input" id="signup-error-msg"></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="./scripts/edit-form.js"></script>
+    <script src="scripts/logout.js"></script>
+</body>
+</html>

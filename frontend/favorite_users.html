@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMs</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar-container">
+        <!-- Logo -->
+        <nav class="navbar">
+            <a class="navbar-icon-container" href="landing_page.html">
+                <object width="48" height="48" data="assets/images/icons/heart.svg">
+                </object>
+                
+                <h2 class="navbar-title">Match</h2>
+            </a>
+            <!-- Links -->
+            <div class="navbar-landing-links">
+                <a class="btn btn-link" href="favorite_users.html" id="dm-caller">DMs</a>
+                <a href="settings.html">
+                    <div id="navbar-profile">
+
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main class="favorite-main" id="favorite-main">
+        <!-- Posts will appear from js -->
+        </div>
+    </main>
+
+    <section class="view-none" id="private-chat-section">
+        <div class="messages">
+            <!-- will be displayed by js -->
+            
+        </div>
+    
+        <div class="box">
+            <textarea type="text" placeholder="Send Message..." id="content"></textarea>
+            <button class="btn btn-send">
+                <div class="send-icon" id="send-btn"></div>
+            </button>
+            
+        </div>
+    </section>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="scripts/favorite.js"></script>
+    <script src="scripts/chat.js"></script>
+</body>
+</html>
