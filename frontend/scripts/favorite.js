@@ -26,14 +26,25 @@ axios.get(userInfoUrl, config).then(resp => {
         });
         allUsers.sort((a, b) => a.distance - b.distance);
         allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
-
+        //go to chat api
+        const getMessageUrl = baseUrl + "/get_chat";
         // block api
         const blockUrl = baseUrl + "/block";
         allUsers.forEach(user => {
             const blockBtn = document.getElementById(`block-${user.id}`);
+            const chatBtn = document.getElementById(`chat-with-${user.id}`);
             const formData = new FormData();
             formData.append('blocked_id', user.id);
-            
+            chatBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                favSection.classList.add('view-none');
+                privateSection.classList.remove('view-none');
+                const dataForm = new FormData();
+                dataForm.append('receiver_id', chatBtn.id.split('-')[2]);
+
+                axios.post(getMessageUrl, dataForm, config).then(ds => console.log(ds));
+            });
+
             blockBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 axios.post(blockUrl, formData, config).then(() => {
