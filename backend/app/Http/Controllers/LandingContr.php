@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -107,8 +108,13 @@ class LandingContr extends Controller {
         $sender = User::find($uid);
         $receiver = User::find($req->get('receiver_id'));
         $content = $req->get('content');
+        $message = Message::create([
+            'sender_id' => $sender->id,
+            'receiver_id' => $receiver->id,
+            'content' => $content,
+        ]);
 
-        $sender->messages->attach($receiver, $content);
+        $sender->messages()->save($message);
         return response()->json(['success' => true]);
     }
 
