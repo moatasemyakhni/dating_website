@@ -101,4 +101,35 @@ class LandingContr extends Controller {
         $genders = $user->genders()->pluck('gender_id')->sum();
         return response()->json(["sum" => $genders]);
     }
+
+    function insertChat(Request $req) {
+        $uid = Auth::user()->id;
+    }
+
+    function getChat(Request $req) {
+        $uid = Auth::user()->id;
+        $sender = User::find($uid);
+        $senderObj = $sender->messages
+        ->where('receiver_id', $req->get('receiver_id'));
+        $senderArr = [];
+        foreach($senderObj as $val) {
+            $senderArr[] = $val;
+        }
+
+        // receiver is actually sender2
+        $receiver = User::find($req->get('receiver_id'));
+        $receiverObj = $receiver->messages
+        ->where('receiver_id', $uid);
+        $receiverArr = [];
+        foreach($receiverObj as $val) {
+            $receiverArr[] = $val;
+        }
+
+        $wholeConvo = array_merge($senderArr, $receiverArr);
+         usort($wholeConvo, function($a, $b) {
+            return strtotime($a->created_at) - strtotime($b->created_at);
+        });
+
+        return $wholeConvo;
+    }
 }
