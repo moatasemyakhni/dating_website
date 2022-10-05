@@ -109,7 +109,7 @@ class LandingContr extends Controller {
         $content = $req->get('content');
 
         $sender->messages->attach($receiver, $content);
-        return response()->json(['sucess' => true]);
+        return response()->json(['success' => true]);
     }
 
     function getChat(Request $req) {

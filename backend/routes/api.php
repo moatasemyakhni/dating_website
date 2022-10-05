@@ -25,6 +25,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('remove_block', [LandingContr::class, 'removeBlock']);
     Route::get('user_interested_in', [LandingContr::class, 'getUserInterests']);
     Route::post('get_chat', [LandingContr::class, 'getChat']);
+    Route::post('insert_message', [LandingContr::class, 'insertChat']);
 });
 
     
