@@ -48,16 +48,6 @@
                     </div>
                 </div>
                 <input class="input" type="number" placeholder="Age..." id="age">
-                <div class="selector-inputs">
-                    <select class="select-location" id="country-selector">
-                        <option value="noCountry" selected>Country</option>
-                        <!-- It will be done through js -->
-                    </select>
-                    <select class="select-location" id="city-selector">
-                        <option value="noCity" selected>City</option>
-                        <!-- It will be done through js -->
-                    </select>
-                </div>
                 <div class="choice-inputs">
                     <p>Interested in</p>
                     <div>
@@ -79,17 +69,14 @@
                     </label>
                     <input class="view-none" type="file" id="profile-photo">
                 </div>
-                <button type="submit" class="btn btn-submit input" id="signup-submit-btn">Update</button>
+                <button type="submit" class="btn btn-submit input" id="update-submit-btn">Update</button>
                 <p class="view-none input" id="signup-error-msg"></p>
             </form>
-            <button type="submit" class="btn btn-submit input" id="signup-submit-btn">Signup</button>
-                <p class="view-none input" id="signup-error-msg"></p>
         </section>
     </main>
 
     <script src="./node_modules/axios/dist/axios.min.js"></script>
-    <script src="scripts/get_countries_cities.js"></script>
-    <script src="scripts/logout.js"></script>
     <script src="./scripts/edit-form.js"></script>
+    <script src="scripts/logout.js"></script>
 </body>
 </html>
