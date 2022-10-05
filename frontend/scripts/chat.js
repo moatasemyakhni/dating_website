@@ -38,18 +38,3 @@ const createChatMessage = (id, img, fullName, timeDiff, content) => {
     msgs.appendChild(messageDiv);
 
 }
-
-// const cont = document.getElementById('content');
-// const sendBtn = document.getElementById('send-btn');
-// axios.get(userInfoUrl, config).then((resp) => {
-//     const myData = resp.data;
-//     sendBtn.addEventListener('click', () => {
-//         if(!cont.value) {
-//             return;
-//         }
-//         const currentTime = new Date();
-//         createChatMessage(myData.id, myData.profile_picture, myData.full_name, timeAgo(currentTime.getTime()), cont.value);
-//         cont.value = "";
-//     });
-// });
-
