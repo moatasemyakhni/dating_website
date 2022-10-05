@@ -98,7 +98,7 @@ class LandingContr extends Controller {
     function getUserInterests() {
         $uid = Auth::user()->id;
         $user = User::find($uid);
-        $genders = $user->genders()->pluck('gender_id');
+        $genders = $user->genders()->pluck('gender_id')->sum();
         return $genders;
     }
 }
