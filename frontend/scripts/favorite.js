@@ -91,33 +91,8 @@ axios.get(userInfoUrl, config).then(resp => {
         return value * Math.PI / 180;
     }
 
-    const timeAgo = (createAt) => {
-        const time = new Date(createAt);
-        const now = new Date();
-        const diff = (now.getTime() - time.getTime()) / 1000;
-        if (diff < 60) {
-            return 'just now';
-        }
-        if (diff < 3600) {
-            return Math.round(diff / 60) + ' minutes ago';
-        }
-        if (diff < 86400) {
-            return Math.round(diff / 3600) + ' hours ago';
-        }
-        if (diff < 604800) {
-            return Math.round(diff / 86400) + ' days ago';
-        }
-        if (diff < 2592000) {
-            return Math.round(diff / 604800) + ' weeks ago';
-        }
-        if (diff < 31536000) {
-            return Math.round(diff / 2592000) + ' months ago';
-        }
-        if (diff < 315360000) {
-            return Math.round(diff / 31536000) + ' years ago';
-        }
-        return time.toDateString();
-    }
+    
+    
 
     const createPost = (id, img, name, age, bio, distance) => {
         const divPost = document.createElement('div');
@@ -194,3 +169,30 @@ axios.get(userInfoUrl, config).then(resp => {
 }).catch(() => {
     window.location.href = "http://192.168.56.1:5501/frontend/";
 });
+const timeAgo = (createAt) => {
+    const time = new Date(createAt);
+    const now = new Date();
+    const diff = (now.getTime() - time.getTime()) / 1000;
+    if (diff < 60) {
+        return 'just now';
+    }
+    if (diff < 3600) {
+        return Math.round(diff / 60) + ' minutes ago';
+    }
+    if (diff < 86400) {
+        return Math.round(diff / 3600) + ' hours ago';
+    }
+    if (diff < 604800) {
+        return Math.round(diff / 86400) + ' days ago';
+    }
+    if (diff < 2592000) {
+        return Math.round(diff / 604800) + ' weeks ago';
+    }
+    if (diff < 31536000) {
+        return Math.round(diff / 2592000) + ' months ago';
+    }
+    if (diff < 315360000) {
+        return Math.round(diff / 31536000) + ' years ago';
+    }
+    return time.toDateString();
+}
