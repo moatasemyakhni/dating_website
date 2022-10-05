@@ -3,7 +3,7 @@ const userInfoUrl = baseUrl+"/me";
 const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
 // get block list api
 const getBlockUrl = baseUrl + "/get_blocked";
-
+const removeBlockUrl = baseUrl + "/remove_block";
 axios.get(userInfoUrl, config).then(myData => {
     const myInfo = myData.data;
     const lonLat = myInfo.location.split('@')[1];
@@ -13,14 +13,32 @@ axios.get(userInfoUrl, config).then(myData => {
 
     axios.get(getBlockUrl, config).then(resp => {
         const d = resp.data;
+        const allUsers = [];
         Object.values(d).forEach(user => {
             const arr = user.location.split('@')[1];
             const lon = parseFloat(arr.split(',')[0]);
             const lat = parseFloat(arr.split(',')[1]);
             const distance = getDistance(myLon, myLat, lon, lat);
-            createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, distance);
-            
+            allUsers.push({"id": user.id, "profile_picture": user.profile_picture, "full_name": user.full_name, "age": user.age, "bio": user.bio, "distance": distance});
         });
+        allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
+        allUsers.forEach(user => {
+            const interestedBtn = document.getElementById(`unblock-${user.id}`);
+            interestedBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dataForm = new FormData();
+                dataForm.append('blocked_id', user.id);
+                axios.post(removeBlockUrl, dataForm, config);
+                const posts = document.querySelectorAll('.post');
+                posts.forEach(post => {
+                    if(post.lastChild.id == `unblock-${user.id}`) {
+                        post.classList.add('view-none');
+                    }
+                });
+
+            });
+        });
+        
     })
 
     const getDistance = (lat1, lon1, lat2, lon2) => {
@@ -103,4 +121,6 @@ axios.get(userInfoUrl, config).then(myData => {
 
         landingMain.appendChild(divPost);
     }
+}).catch(() => {
+    window.location.href = "http://192.168.56.1:5501/frontend/";
 });
