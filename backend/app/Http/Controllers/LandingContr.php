@@ -104,6 +104,12 @@ class LandingContr extends Controller {
 
     function insertChat(Request $req) {
         $uid = Auth::user()->id;
+        $sender = User::find($uid);
+        $receiver = User::find($req->get('receiver_id'));
+        $content = $req->get('content');
+
+        $sender->messages->attach($receiver, $content);
+        return response()->json(['sucess' => true]);
     }
 
     function getChat(Request $req) {
