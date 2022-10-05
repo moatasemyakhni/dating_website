@@ -28,13 +28,35 @@ axios.get(userInfoUrl, config).then(resp => {
         allUsers.forEach(user => createPost(user.id, user.profile_picture, user.full_name, user.age, user.bio, user.distance));
         //go to chat api
         const getMessageUrl = baseUrl + "/get_chat";
+        //insert chat
+        const insertMessageUrl = baseUrl + "/insert_message";
         // block api
         const blockUrl = baseUrl + "/block";
         allUsers.forEach(user => {
             const blockBtn = document.getElementById(`block-${user.id}`);
             const chatBtn = document.getElementById(`chat-with-${user.id}`);
+            const sendMessageBtn = document.getElementById('send-btn');
+            
+            const cont = document.getElementById('content');
+            sendMessageBtn.addEventListener('click', () => {
+                if(!cont.value) {
+                    return;
+                }
+                const currentTime = new Date();
+                createChatMessage(resp.data.id, resp.data.profile_picture, resp.data.full_name, timeAgo(currentTime.getTime()), cont.value);
+                const dataForminsert = new FormData();
+                dataForminsert.append('receiver_id', chatBtn.id.split('-')[2]);
+                dataForminsert.append('content', cont.value);
+                sendMessageBtn.addEventListener('click', () => {
+                    axios.post(insertMessageUrl, dataForminsert, config).then(d => console.log(d.data));
+                });
+                
+                cont.value = "";
+            });
             const formData = new FormData();
             formData.append('blocked_id', user.id);
+
+            
             chatBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 favSection.classList.add('view-none');
