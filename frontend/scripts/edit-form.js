@@ -4,7 +4,6 @@ const myInfoUrl = baseUrl + "/me";
 const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
 axios.get(myInfoUrl, config).then(myData => {
 
-    console.log(myData.data);
     const user = myData.data;
     const fullName = document.getElementById('full-name');
     const maleGender = document.getElementById('male-gender');
@@ -28,7 +27,6 @@ axios.get(myInfoUrl, config).then(myData => {
     const interestedInUrl = baseUrl + "/user_interested_in";
     axios.get(interestedInUrl, config).then(s => {
         let sum = s.data.sum;
-        console.log(sum)
         if(sum == 1)
             interestFemale.setAttribute('checked', true);
         else if(sum == 2)
@@ -40,18 +38,24 @@ axios.get(myInfoUrl, config).then(myData => {
     });
 
     bio.value = user.bio;
-    document.getElementById('update-img').src = user.profilePhoto;
+    document.getElementById('update-img').src = user.profile_picture;
 
     // update
-    updateBtn.addEventListener('click', () => {
+    updateBtn.addEventListener('click', (e) => {
         e.preventDefault();
         let interestGender = "";
-        if(!fullName.value || (!femaleGender.checked && !maleGender.checked) || !age.value || !signupEmail.value || !signupPassword.value || !passwordRepeat.value || country.value==="noCountry" || city.value==="noCity" || (!interestMale.checked && !interestFemale.checked)) {
+        if(!fullName.value || (!femaleGender.checked && !maleGender.checked) || !age.value || (!interestMale.checked && !interestFemale.checked)) {
             errMessage.textContent = "Required Field";
             errMessage.classList.remove('view-none');
             return;
         }
-    let biography;
+        if(!nameValidation(fullName.value)) {
+            errMessage.textContent = "name is between 5 and 50 chars";
+            errMessage.classList.remove('view-none');
+            return;
+        }
+    
+        let biography;
         if(!bio.value) {
             biography = null;
         }else {
@@ -69,53 +73,24 @@ axios.get(myInfoUrl, config).then(myData => {
             interestGender += interestFemale.value;
 
         const formData = new FormData();
-        formData.append('email', signupEmail.value);
-        const checkEmail = baseUrl + "/check_email";
-        axios.post(checkEmail, formData).then(resp => {
-            if(!resp.data.available) {
-                errMessage.textContent = "Email is taken";
-                errMessage.classList.remove('view-none');
-                return
-            }
-            
-            errMessage.classList.add('view-none');
-            //geolocation api
-            const geoLocationUrl = `https://api.opencagedata.com/geocode/v1/json?q=${city.value}&key=b3cd495a7c2b4fcfafa46a2806da89fa`;
-            axios.get(geoLocationUrl).then(resp => {
-                const location = resp.data.results[0].geometry;
-                const loc = `@${location.lat},${location.lng}`;
-                formData.append('gender_id', gender);
-                formData.append('full_name', fullName.value);
-                formData.append('age', age.value);
-                formData.append('location', loc);
-                formData.append('bio', biography);
-                formData.append('interested', interestGender);
-                if(profilePhoto.files['length'] > 0) {
-                    const reader = new FileReader();
-                    reader.addEventListener('load', () => {
-                        const photo = reader.result;
-                        formData.append('profile_picture', photo);
-            
-                        axios.post(signUpUrl, formData).then(response => {
-                            const data = response.data;
-                            localStorage.setItem('userToken', data.token.original.access_token);
-                        });
-                    });
-                    reader.readAsDataURL(profilePhoto.files[0]);
-                }else {
-                    formData.append('profile_picture', 'null');
-            
-                    axios.post(signUpUrl, formData).then(response => {
-                        const data = response.data;
-                        
-                        console.log(data.token.original.access_token);
-                        localStorage.setItem('userToken', data.token.original.access_token);
-                        
-                        window.location.href = "http://192.168.56.1:5501/frontend/landing_page.html"
-                    });
-                }
+        formData.append('gender_id', gender);
+        formData.append('full_name', fullName.value);
+        formData.append('age', age.value);
+        formData.append('bio', biography);
+        formData.append('interested', interestGender);
+        if(profilePhoto.files['length'] > 0) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                const photo = reader.result;
+                formData.append('profile_picture', photo);
+                axios.post(editUrl, formData, config).then(() => {
+                });
             });
-        });
+            reader.readAsDataURL(profilePhoto.files[0]);
+        }else{ 
+            axios.post(editUrl, formData, config).then(() => {
+            });
+        }
     });
     const nameValidation = (name) => {
         const exp = /^[A-Za-z\s]{5,255}$/;
@@ -127,4 +102,7 @@ axios.get(myInfoUrl, config).then(myData => {
 
         return true;
     }
+}).catch(() => {
+    // no auth no access
+    window.location.href = "http://192.168.56.1:5501/frontend/landing_page.html";
 });
