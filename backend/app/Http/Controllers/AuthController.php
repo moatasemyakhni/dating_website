@@ -93,6 +93,68 @@ class AuthController extends Controller {
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
+    public function update(Request $req) {
+        $validator = validator()->make(request()->all(), [
+            'gender_id' => 'numeric|required',
+            'full_name' => "string|required",
+            "age" => "numeric|required|min:18",
+            "location" => "string|required",
+            "bio" => "nullable",
+            "profile_picture" => "nullable",
+            "interested" => "required",
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                "message" => 'Register failed',
+            ]);
+        }
+        $photo = $req->get('profile_picture');
+        if(is_null($photo) || !$photo || $photo == 'null') {
+            $photo = storage_path('/app/images/default.png');
+            $photo = "http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/default.png";
+        }else {
+            $data = explode(',', $photo);// to get the ext
+            $ext = explode(';', explode('/', $data[0])[1])[0];
+            $user = "user" . $req-> get('full_name') . "_" . time(); //unique it
+            //$path = ;
+            // to avoid local absolute path problem.
+            $path = "http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/";
+            $completeUrl = $path . $user . "." . $ext;
+            $completeUrl2 = storage_path('/app/images/') . $user . "." . $ext;
+            //Actually saving the photo in the previous path
+            file_put_contents($completeUrl2, file_get_contents($photo));
+            $photo = $completeUrl;
+        }
+        $bio = $req-> get('bio');
+        if(is_null($bio) || $bio == "" || !$bio) {
+            $bio = "Match User";
+        }
+        $user = User::all();
+        $user->gender_id = $req->get('gender_id');
+        $user->full_name = $req-> get('full_name');
+        $user->email = $req-> get('email');
+        $user->password = bcrypt($req-> get('password'));
+        $user->age = $req-> get('age');
+        $user->location = $req-> get('location');
+        $user->bio = $req->$bio;
+        $user->profile_picture = $req->$photo;
+
+        foreach(str_split($req->get('interested')) as $value) {
+            $user->genders()->attach(intval($value));
+        }
+
+        if ($token = JWTAuth::attempt(['email' => $req->get('email'), 'password' => $req->get('password')])) {
+            $tok = $this->respondWithToken($token);
+        }
+        $user->update();
+        return response()->json([
+            'message' => 'User Created',
+            'user' => $user,
+            'token' => $tok,
+        ]);
+    }
+
     public function me(Request $req) {
         return response()->json(auth()->user());
     }
