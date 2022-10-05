@@ -25,7 +25,24 @@ axios.get(myInfoUrl, config).then(myData => {
         maleGender.setAttribute('checked', true);
     }
     age.value = user.age;
+    const interestedInUrl = baseUrl + "/user_interested_in";
+    axios.get(interestedInUrl, config).then(s => {
+        let sum = s.data.sum;
+        console.log(sum)
+        if(sum == 1)
+            interestFemale.setAttribute('checked', true);
+        else if(sum == 2)
+        interestMale.setAttribute('checked', true);
+        else if(sum == 3) {
+            interestMale.setAttribute('checked', true);
+            interestFemale.setAttribute('checked', true);
+        }
+    });
 
+    bio.value = user.bio;
+    document.getElementById('update-img').src = user.profilePhoto;
+
+    // update
     updateBtn.addEventListener('click', () => {
         e.preventDefault();
         let interestGender = "";
