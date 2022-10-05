@@ -22,14 +22,14 @@
                 <!-- Dm is for location of favorite users -->
                 <a class="btn btn-link" href="favorite_users.html" id="dm-caller">DMs</a>
                 <!-- logout btn -->
-                <a class="btn btn-link logout-btn" href="index.html">logout</a>
+                <a class="btn btn-link" id="logout-btn" href="index.html">logout</a>
             </div>
         </nav>
     </header>
     <main class="main-container">
         <section class="" id="signup-section">
             <form class="form" action="index.html" method="post">
-                <h3 class="form-title">Signup Form</h3>
+                <h3 class="form-title">Edit Form</h3>
                 <input class="input" type="text" placeholder="Full name..." id="full-name">
                 <div class="choice-inputs">
                     <p>Gender</p>
@@ -45,9 +45,6 @@
                     </div>
                 </div>
                 <input class="input" type="number" placeholder="Age..." id="age">
-                <input class="input" type="email" placeholder="Email..." id="signup-email">
-                <input class="input" type="password" placeholder="Password..." id="signup-password">
-                <input class="input" type="password" placeholder="Confirm Password..." id="password-repeat">
                 <div class="selector-inputs">
                     <select class="select-location" id="country-selector">
                         <option value="noCountry" selected>Country</option>
@@ -79,7 +76,7 @@
                     </label>
                     <input class="view-none" type="file" id="profile-photo">
                 </div>
-                <button type="submit" class="btn btn-submit input" id="signup-submit-btn">Signup</button>
+                <button type="submit" class="btn btn-submit input" id="signup-submit-btn">Update</button>
                 <p class="view-none input" id="signup-error-msg"></p>
             </form>
         </section>
@@ -87,5 +84,6 @@
 
     <script src="./node_modules/axios/dist/axios.min.js"></script>
     <script src="scripts/get_countries_cities.js"></script>
+    <script src="scripts/logout.js"></script>
 </body>
 </html>
