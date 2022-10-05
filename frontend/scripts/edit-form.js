@@ -1,6 +1,6 @@
 const editUrl = baseUrl +  "/auth/edit";
 const myInfoUrl = baseUrl + "/auth/me";
-
+const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
 axios.get(myInfoUrl, config).then(myData => {
 
     console.log(myData.data);

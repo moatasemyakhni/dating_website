@@ -1,6 +1,5 @@
 const logoutUrl = "http://127.0.0.1:8000/api/auth/logout";
 const logoutBtn = document.getElementById('logout-btn');
-const config = {headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}};
 
 logoutBtn.addEventListener('click', (e) => {
     e.preventDefault();
