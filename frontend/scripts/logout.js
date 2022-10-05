@@ -10,4 +10,6 @@ logoutBtn.addEventListener('click', (e) => {
     }).catch(() => {
         window.location.href = "http://192.168.56.1:5501/frontend/";
     });
+}).catch(() => {
+    window.location.href = "http://192.168.56.1:5501/frontend/";
 });
