@@ -14,21 +14,21 @@ class LandingContr extends Controller {
 
     function getUsers(Request $req) {
         $userID = Auth::user()->id;
-        $arr = [];
+        $favArr = [];
         $displayInterest = $this->displayInterest();
         foreach($displayInterest->original as $key => $val) {
-            $arr[] = $val->id;
+            $favArr[] = $val->id;
         }
-        $arr2 = [];
+        $blockedArr = [];
         $displayBlocked = $this->getBlock();
         foreach($displayBlocked->original as $key => $val) {
-            $arr2[] = $val->id;
+            $blockedArr[] = $val->id;
         }
         // all users are displayed except fav and blocked users
         $users = User::all()
                     ->where('id', '!=', $userID)
-                    ->whereNotIn('id', $arr)
-                    ->whereNotIn('id', $arr2);
+                    ->whereNotIn('id', $favArr)
+                    ->whereNotIn('id', $blockedArr);
         return $users;
     }
 
