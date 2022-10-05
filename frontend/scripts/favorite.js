@@ -140,4 +140,6 @@ axios.get(userInfoUrl, config).then(resp => {
 
         favoriteMain.appendChild(divPost);
     }
+}).catch(() => {
+    window.location.href = "http://192.168.56.1:5501/frontend/";
 });
