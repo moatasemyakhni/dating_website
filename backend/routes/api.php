@@ -9,16 +9,18 @@ use App\Http\Controllers\PublicController;
 Route::group(['prefix' => 'auth'], function () {
 
     Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::get('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('edit', [AuthController::class, 'update']);
+
+    Route::get('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']);
 
-    Route::get('users', [LandingContr::class, 'getUsers']);
     Route::post('interests', [LandingContr::class, 'addToInterest']);
-    Route::get('user_interest_list', [LandingContr::class, 'displayInterest']);
     Route::post('block', [LandingContr::class, 'insertBlock']);
-    
+
+    Route::get('user_interest_list', [LandingContr::class, 'displayInterest']);
+    Route::get('users', [LandingContr::class, 'getUsers']);
 });
 
     
