@@ -48,9 +48,9 @@ axios.get(userInfoUrl, config).then(resp => {
                     if(old.length != 0) {
                         for(let i = 1; i < old.length; i++) {
                             if(resp.data.id == old[i].sender_id) {
-                                createChatMessage(resp.data.id,resp.data.profile_picture, resp.data.full_name, resp.data.created_at, old[i].content);
+                                createChatMessage(resp.data.id,resp.data.profile_picture, resp.data.full_name, timeAgo(old[i].created_at), old[i].content);
                             }else {
-                                createChatMessage(old[i].sender_id,old[0].profile_picture, old[0].full_name, old[i].created_at, old[i].content);
+                                createChatMessage(old[i].sender_id,old[0].profile_picture, old[0].full_name, timeAgo(old[i].created_at), old[i].content);
                             }
                         }
                     }
