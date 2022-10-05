@@ -53,4 +53,12 @@ class LandingContr extends Controller {
         return response()->json($users);
 
     }
+
+    function insertBlock(Request $req) {
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
+        $blockedID = $req->get('blocked_id');
+        $user->blockedList()->attach($blockedID);
+        return response()->json(['blocked' => true]);
+    }
 }
