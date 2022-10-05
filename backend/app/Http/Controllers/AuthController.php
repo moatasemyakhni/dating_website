@@ -50,6 +50,10 @@ class AuthController extends Controller {
             file_put_contents($completeUrl2, file_get_contents($photo));
             $photo = $completeUrl;
         }
+        $bio = request()-> get('bio');
+        if(is_null($bio) || $bio == "" || !$bio) {
+            $bio = "Match User";
+        }
         $user = User::create([
             'gender_id' => request()->get('gender_id'),
             'full_name' => request()-> get('full_name'),
@@ -57,7 +61,7 @@ class AuthController extends Controller {
             'password' => bcrypt(request()-> get('password')),
             'age' => request()-> get('age'),
             'location' => request()-> get('location'),
-            'bio' => request()-> get('bio'),
+            'bio' => $bio,
             'profile_picture' => $photo,
         ]);
 
