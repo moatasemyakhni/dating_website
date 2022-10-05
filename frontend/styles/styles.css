@@ -97,7 +97,7 @@ img {
     color: white;
     background-image: url('../assets/images/cover_images/alt_hero_image.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
 }
 
@@ -231,7 +231,7 @@ img {
     height: 50px;
     background-image: url("http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/userJohn3_1664723095.jpeg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     border-radius: 50%;
     cursor: pointer;
 }
