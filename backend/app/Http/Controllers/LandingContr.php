@@ -19,10 +19,16 @@ class LandingContr extends Controller {
         foreach($displayInterest->original as $key => $val) {
             $arr[] = $val->id;
         }
-        
+        $arr2 = [];
+        $displayBlocked = $this->getBlock();
+        foreach($displayBlocked->original as $key => $val) {
+            $arr2[] = $val->id;
+        }
+        // all users are displayed except fav and blocked users
         $users = User::all()
                     ->where('id', '!=', $userID)
-                    ->whereNotIn('id', $arr);
+                    ->whereNotIn('id', $arr)
+                    ->whereNotIn('id', $arr2);
         return $users;
     }
 
