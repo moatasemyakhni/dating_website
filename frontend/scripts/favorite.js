@@ -40,9 +40,21 @@ axios.get(userInfoUrl, config).then(resp => {
                 favSection.classList.add('view-none');
                 privateSection.classList.remove('view-none');
                 const dataForm = new FormData();
+                // get the id number (the id has the format of xx-xx-idNumber)
                 dataForm.append('receiver_id', chatBtn.id.split('-')[2]);
 
-                axios.post(getMessageUrl, dataForm, config).then(ds => console.log(ds));
+                axios.post(getMessageUrl, dataForm, config).then(oldMessages => {
+                    const old = oldMessages.data;
+                    if(old.length != 0) {
+                        for(let i = 1; i < old.length; i++) {
+                            if(resp.data.id == old[i].sender_id) {
+                                createChatMessage(resp.data.id,resp.data.profile_picture, resp.data.full_name, resp.data.created_at, old[i].content);
+                            }else {
+                                createChatMessage(old[i].sender_id,old[0].profile_picture, old[0].full_name, old[i].created_at, old[i].content);
+                            }
+                        }
+                    }
+                });
             });
 
             blockBtn.addEventListener('click', (e) => {
@@ -77,6 +89,34 @@ axios.get(userInfoUrl, config).then(resp => {
 
     const toRad = (value) => {
         return value * Math.PI / 180;
+    }
+
+    const timeAgo = (createAt) => {
+        const time = new Date(createAt);
+        const now = new Date();
+        const diff = (now.getTime() - time.getTime()) / 1000;
+        if (diff < 60) {
+            return 'just now';
+        }
+        if (diff < 3600) {
+            return Math.round(diff / 60) + ' minutes ago';
+        }
+        if (diff < 86400) {
+            return Math.round(diff / 3600) + ' hours ago';
+        }
+        if (diff < 604800) {
+            return Math.round(diff / 86400) + ' days ago';
+        }
+        if (diff < 2592000) {
+            return Math.round(diff / 604800) + ' weeks ago';
+        }
+        if (diff < 31536000) {
+            return Math.round(diff / 2592000) + ' months ago';
+        }
+        if (diff < 315360000) {
+            return Math.round(diff / 31536000) + ' years ago';
+        }
+        return time.toDateString();
     }
 
     const createPost = (id, img, name, age, bio, distance) => {

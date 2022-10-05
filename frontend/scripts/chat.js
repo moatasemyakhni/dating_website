@@ -13,9 +13,8 @@ const createChatMessage = (id, img, fullName, timeDiff, content) => {
         const headerMessageDiv = document.createElement('div');
         headerMessageDiv.setAttribute('class', 'header-message');
             const imgMessage = document.createElement('div');
-            imgMessage.setAttribute('class', 'img-message');
-            imgMessage.setAttribute('id', `img-header-${id}`);
-            document.getElementById('id').style.backgroundImage = img;
+            imgMessage.setAttribute('class', `img-message img-header-${id}`);
+            imgMessage.style.backgroundImage = `url("${img}")`;
 
             const name = document.createElement('p');
             name.textContent = fullName;
