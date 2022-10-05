@@ -280,3 +280,9 @@ main {
 .btn-wrapper {
     display: flex;
 }
+
+.block-btn-wrapper {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
