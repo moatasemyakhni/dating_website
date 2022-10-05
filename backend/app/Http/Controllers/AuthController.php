@@ -108,36 +108,35 @@ class AuthController extends Controller {
                 "message" => 'Register failed',
             ]);
         }
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
         $photo = $req->get('profile_picture');
         if(is_null($photo) || !$photo || $photo == 'null') {
-            $photo = storage_path('/app/images/default.png');
-            $photo = "http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/default.png";
+            // do nothing
+            ;
         }else {
             $data = explode(',', $photo);// to get the ext
             $ext = explode(';', explode('/', $data[0])[1])[0];
-            $user = "user" . $req-> get('full_name') . "_" . time(); //unique it
+            $userLabel = "user" . $req-> get('full_name') . "_" . time(); //unique it
             //$path = ;
             // to avoid local absolute path problem.
             $path = "http://localhost/9-sefactory/dating_web/dating_website/backend/storage/app/images/";
-            $completeUrl = $path . $user . "." . $ext;
-            $completeUrl2 = storage_path('/app/images/') . $user . "." . $ext;
+            $completeUrl = $path . $userLabel . "." . $ext;
+            $completeUrl2 = storage_path('/app/images/') . $userLabel . "." . $ext;
             //Actually saving the photo in the previous path
             file_put_contents($completeUrl2, file_get_contents($photo));
             $photo = $completeUrl;
+            $user->profile_picture = $photo;
         }
         $bio = $req->get('bio');
         if(is_null($bio) || $bio == "" || !$bio || $bio="Match User") {
             $bio = "Match User";
         }
-        
-        $uid = Auth::user()->id;
-        $user = User::find($uid);
+       
         $user->gender_id = $req->get('gender_id');
         $user->full_name = $req-> get('full_name');
         $user->age = $req-> get('age');
         $user->bio = $bio;
-        $user->profile_picture = $photo;
-        
         // delete old values before insert in pivot table
         $user->genders()->detach();
         foreach(str_split($req->get('interested')) as $value) {
