@@ -93,8 +93,8 @@ axios.get(userInfoUrl, config).then(myData => {
         
         const interestBtn = document.createElement('button');
         interestBtn.setAttribute('class', 'btn btn-hero btn-interest');
-        interestBtn.setAttribute('id', `interested-in-${id}`);
-        interestBtn.textContent = "Interested";
+        interestBtn.setAttribute('id', `unblock-${id}`);
+        interestBtn.textContent = "Unblock";
 
         divPost.appendChild(imgWrapper);
         divPost.appendChild(postTextContainer);
