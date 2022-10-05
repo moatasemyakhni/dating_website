@@ -98,7 +98,6 @@ class AuthController extends Controller {
             'gender_id' => 'numeric|required',
             'full_name' => "string|required",
             "age" => "numeric|required|min:18",
-            "location" => "string|required",
             "bio" => "nullable",
             "profile_picture" => "nullable",
             "interested" => "required",
@@ -126,32 +125,29 @@ class AuthController extends Controller {
             file_put_contents($completeUrl2, file_get_contents($photo));
             $photo = $completeUrl;
         }
-        $bio = $req-> get('bio');
-        if(is_null($bio) || $bio == "" || !$bio) {
+        $bio = $req->get('bio');
+        if(is_null($bio) || $bio == "" || !$bio || $bio="Match User") {
             $bio = "Match User";
         }
-        $user = User::all();
+        
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
         $user->gender_id = $req->get('gender_id');
         $user->full_name = $req-> get('full_name');
-        $user->email = $req-> get('email');
-        $user->password = bcrypt($req-> get('password'));
         $user->age = $req-> get('age');
-        $user->location = $req-> get('location');
-        $user->bio = $req->$bio;
-        $user->profile_picture = $req->$photo;
-
+        $user->bio = $bio;
+        $user->profile_picture = $photo;
+        
+        // delete old values before insert in pivot table
+        $user->genders()->detach();
         foreach(str_split($req->get('interested')) as $value) {
             $user->genders()->attach(intval($value));
         }
 
-        if ($token = JWTAuth::attempt(['email' => $req->get('email'), 'password' => $req->get('password')])) {
-            $tok = $this->respondWithToken($token);
-        }
         $user->update();
         return response()->json([
             'message' => 'User Created',
             'user' => $user,
-            'token' => $tok,
         ]);
     }
 

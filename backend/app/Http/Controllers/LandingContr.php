@@ -99,6 +99,6 @@ class LandingContr extends Controller {
         $uid = Auth::user()->id;
         $user = User::find($uid);
         $genders = $user->genders()->pluck('gender_id')->sum();
-        return $genders;
+        return response()->json(["sum" => $genders]);
     }
 }
