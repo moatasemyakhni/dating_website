@@ -59,6 +59,8 @@ class LandingContr extends Controller {
         $user = User::find($uid);
         $blockedID = $req->get('blocked_id');
         $user->blockedList()->attach($blockedID);
+        // delete from favorites
+        $user->userFavorites()->detach($blockedID);
         return response()->json(['blocked' => true]);
     }
 }
