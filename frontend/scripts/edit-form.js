@@ -16,6 +16,9 @@ axios.get(myInfoUrl, config).then(myData => {
     const updateBtn = document.getElementById('update-submit-btn');
     const errMessage = document.getElementById('signup-error-msg');
 
+    // in case message from before existed
+    errMessage.classList.add('view-none');
+
     //assign old values
     fullName.value = user.full_name;
     if(user.gender_id == 1) {
@@ -84,11 +87,15 @@ axios.get(myInfoUrl, config).then(myData => {
                 const photo = reader.result;
                 formData.append('profile_picture', photo);
                 axios.post(editUrl, formData, config).then(() => {
+                    errMessage.textContent = "Update Succeeded";
+                    errMessage.classList.remove('view-none')
                 });
             });
             reader.readAsDataURL(profilePhoto.files[0]);
         }else{ 
             axios.post(editUrl, formData, config).then(() => {
+                errMessage.textContent = "Update Succeeded";
+                errMessage.classList.remove('view-none')
             });
         }
     });
